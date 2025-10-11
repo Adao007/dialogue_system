@@ -15,3 +15,4 @@ pub fn init_scene(mut commands: Commands, asset_server: Res<AssetServer>) {
         Transform::from_xyz(0.0, 0.0, 0.0),
     ));
 }
+
