@@ -106,12 +106,12 @@ fn setup_dialogue(mut commands: Commands) {
     
     commands.spawn((
         Text::new(dialogue),
+        TextLayout::new_with_justify(Justify::Left),
+        TextColor(Color::srgb(1.0, 1.0, 1.0)), 
         TextFont{
             font_size: 20.0,
             ..default()
         }, 
-        TextLayout::new_with_justify(Justify::Left),
-        TextColor(Color::srgb(1.0, 1.0, 1.0)), 
         Node {
             position_type: PositionType::Absolute,
             top: Val::Px(100.0),

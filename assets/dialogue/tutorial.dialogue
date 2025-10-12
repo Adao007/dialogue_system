@@ -1,0 +1,91 @@
+[
+    {
+        "id": "example",
+        "speaker": "Instructor", 
+        "text": "This is an example of a Json File! This is dialogue.",
+        "choices": [
+            {
+                "text": "Dialogue for choice 1: learn more about linear dialogue.",
+                "next_node": "go_to_node_a"
+            }, 
+            {
+                "text": "Dialogue for choice 2: do not chose this!",
+                "next_node": "go_to_node_b"
+            }
+        ]
+    }, 
+
+    {
+        "id": "go_to_node_a",
+        "speaker": "Instructor", 
+        "text": "Congrats! You have made it to node a",
+        "choices": [
+            {
+                "text": "Thanks, lets hear you speak! (Linear Dialogue)",
+                "next_node": "linear_node"
+            }, 
+            {
+                "text": "Shall we head our separate ways?",
+                "next_node": "end_example"
+            }
+        ]
+    },
+
+    {
+        "id": "go_to_node_b",
+        "speaker": "Instructor",
+        "text": "Chosen to go this b route huh? Well, one last chance to learn...",
+        "choices": [
+            {
+                "text": "Okay, okay, I'll learn your linear dialogue...",
+                "next_node": "linear_node"
+            }, 
+            {
+                "text": "No!!! END THIS NOW!!!",
+                "next_node": "end_example" 
+            }
+        ]
+    },
+
+    {
+        "id": "linear_node", 
+        "speaker": "Instructor", 
+        "text": "Linear nodes are used for extended dialogues, that don't offer player choices",
+        "choices": [
+            {
+                "text": "continue",
+                "next_node": "linear_part_two"
+            }
+        ]
+    }, 
+
+    {
+        "id": "linear_part_two", 
+        "speaker": "Instructor", 
+        "text": "This is part 2 of the linear node! You can extend this as long as you like!", 
+        "choices": [
+            {
+                "text": "Okay I got it! Thanks, I'll be heading off now!!!",
+                "next_node": "end_class" 
+            }, 
+            {
+                "text": "Pointless, stupid!!!",
+                "next_node": "end_example"
+            }
+        ]
+    }, 
+
+    {
+        "id": "end_example",
+        "speaker": "Instructor",
+        "text": "Listen here you mongol! How will you know how linear dialogue works?",
+        "choices": []
+    },
+
+    {
+        "id": "end_class",
+        "speaker": "Instructor", 
+        "text": "Thanks for listening! Next time we will look at long dialogue and formatting...", 
+        "choices": []
+    }
+]
