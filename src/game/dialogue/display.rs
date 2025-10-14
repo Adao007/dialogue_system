@@ -1,7 +1,7 @@
 use bevy::prelude::*; 
 
-pub struct DialoguePlugin;
-impl Plugin for DialoguePlugin {
+pub struct DisplayPlugin;
+impl Plugin for DisplayPlugin {
     fn build(&self, app: &mut App) {
         app
         .add_message::<DialogueAdvanced>()
@@ -100,6 +100,9 @@ fn advance_dialogue(
     }
 }
 
+#[derive(Component)]
+pub struct UiSize; 
+
 fn setup_dialogue(mut commands: Commands) {
     
     let dialogue = "Where the hell are we? Is this really where the map said to go?! Thats unbelieveable.... Well off to find New Vegas!!!";
@@ -109,14 +112,15 @@ fn setup_dialogue(mut commands: Commands) {
         TextLayout::new_with_justify(Justify::Left),
         TextColor(Color::srgb(1.0, 1.0, 1.0)), 
         TextFont{
-            font_size: 20.0,
+            font_size: 40.0,
             ..default()
         }, 
         Node {
             position_type: PositionType::Absolute,
-            top: Val::Px(100.0),
-            left: Val::Px(50.0),
-            width: Val::Px(500.0),
+            top: Val::Px(810.0),
+            left: Val::Px(384.0),
+            width: Val::Px(1152.0),
+            height: percent(10),
             overflow: Overflow::clip(), 
             ..default()
         }, 
@@ -124,5 +128,22 @@ fn setup_dialogue(mut commands: Commands) {
             dialogue.to_string(),
             12.5,
         ),
+        BackgroundColor(Color::srgba(0.10, 0.10, 0.10, 0.9)),
+        UiSize, 
     ));
 }
+
+// fn compute_ui_size(
+//     mut commands: Commands, 
+//     query: Query<&ComputedNode, With<UiSize>>, 
+//     mut meshes: ResMut<Assets<Mesh>>,
+//     mut materials: ResMut<Assets<ColorMaterial>>, 
+// ) {
+//     let computed = query.single().unwrap(); 
+
+    
+//     commands.spawn((
+//         Mesh2d(meshes.add(Rectangle::new(computed.content_size[0], computed.content_size[1]))),
+//         MeshMaterial2d(materials.add(Color::srgba(0.0, 0.0, 0.0, 0.9))),         
+//     ));
+// }

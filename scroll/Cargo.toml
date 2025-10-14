@@ -1,0 +1,8 @@
+[package]
+name = "scroll"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+accesskit = "0.21.1"
+bevy = "0.17.2"
