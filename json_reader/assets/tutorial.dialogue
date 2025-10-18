@@ -53,7 +53,7 @@
         "text": "Linear nodes are used for extended dialogues, that don't offer player choices",
         "choices": [
             {
-                "text": "continue",
+                "text": "",
                 "next_node": "linear_part_two"
             }
         ]

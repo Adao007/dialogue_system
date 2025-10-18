@@ -1,0 +1,39 @@
+[
+    {
+        "id": "start",
+        "speaker": "Tony",
+        "text": "Where da hell are we, Jupi? This, without a doubt, is NOT New Vegas!!!",
+        "next": "start_continued"
+    }, 
+    {
+        "id": "start_continued",
+        "speaker": "Tony",
+        "text": "I could have sworn that big ole bison was around here somewhere... or was it a dinosaur?",
+        "next": "jupi_question"
+    }, 
+    {
+        "id": "jupi_question",
+        "speaker": "Jupi",
+        "text": "Don't you mean LAS Vegas?", 
+        "choices": [
+            {
+                "text": "You know, you know, you know New Vegas and what it means to me...",
+                "next": "jupi_confused"
+            },
+            {
+                "text": "Where is the Dinosaur, Jupi? WHERE IS IT???!!!",
+                "next": "jupi_scared"
+            }
+        ]
+    },
+    {
+        "id": "jupi_confused",
+        "speaker": "Jupi",
+        "text": "U EVIL BOY!!!!!!! WHAT ABOUT A JUPI? WHAT DOES A JUPI MEAN TO YOU?!"
+    },
+    {
+        "id": "jupi_scared",
+        "speaker": "Jupi",
+        "text": "I DUNNO!!! UEUEUEUE!!!"
+    }
+]

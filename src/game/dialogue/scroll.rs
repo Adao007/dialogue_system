@@ -1,7 +1,7 @@
 use bevy::input::mouse::{MouseScrollUnit, MouseWheel}; 
 use bevy::picking::hover::HoverMap; 
 use bevy::prelude::*;
-use super::display::{ DialogueBox, DialogueText }; 
+use super::ui::{ DialogueBox, DialogueText }; 
 
 pub struct ScrollPlugin; 
 impl Plugin for ScrollPlugin {

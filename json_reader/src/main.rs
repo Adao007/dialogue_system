@@ -120,7 +120,7 @@ fn get_user_choice(dialogue: &DialogueState) -> Option<usize> {
             return None;
         }
 
-        if node.choices.len() == 1 && node.choices[0].text.to_lowercase() == "continue" {
+        if node.choices.len() == 1 && node.choices[0].text.to_lowercase() == "" {
             // Auto-advance without asking for input
             println!("\n(Continuing...)");
             return Some(0);

@@ -1,4 +1,9 @@
-pub mod display; 
-pub mod loader; 
-pub mod ui; 
-pub mod scroll; 
+pub mod choices;
+pub mod data;
+pub mod display;
+pub mod input;
+pub mod loader;
+pub mod output;
+pub mod scroll;
+pub mod state;
+pub mod ui;

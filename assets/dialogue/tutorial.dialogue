@@ -1,16 +1,16 @@
 [
     {
-        "id": "example",
+        "id": "start",
         "speaker": "Instructor", 
         "text": "This is an example of a Json File! This is dialogue.",
         "choices": [
             {
                 "text": "Dialogue for choice 1: learn more about linear dialogue.",
-                "next_node": "go_to_node_a"
+                "next": "go_to_node_a"
             }, 
             {
                 "text": "Dialogue for choice 2: do not chose this!",
-                "next_node": "go_to_node_b"
+                "next": "go_to_node_b"
             }
         ]
     }, 
@@ -22,11 +22,11 @@
         "choices": [
             {
                 "text": "Thanks, lets hear you speak! (Linear Dialogue)",
-                "next_node": "linear_node"
+                "next": "linear_node"
             }, 
             {
                 "text": "Shall we head our separate ways?",
-                "next_node": "end_example"
+                "next": "end_example"
             }
         ]
     },
@@ -38,11 +38,11 @@
         "choices": [
             {
                 "text": "Okay, okay, I'll learn your linear dialogue...",
-                "next_node": "linear_node"
+                "next": "linear_node"
             }, 
             {
                 "text": "No!!! END THIS NOW!!!",
-                "next_node": "end_example" 
+                "next": "end_example" 
             }
         ]
     },
@@ -53,8 +53,8 @@
         "text": "Linear nodes are used for extended dialogues, that don't offer player choices",
         "choices": [
             {
-                "text": "continue",
-                "next_node": "linear_part_two"
+                "text": [],
+                "next": "linear_part_two"
             }
         ]
     }, 
@@ -66,11 +66,11 @@
         "choices": [
             {
                 "text": "Okay I got it! Thanks, I'll be heading off now!!!",
-                "next_node": "end_class" 
+                "next": "end_class" 
             }, 
             {
                 "text": "Pointless, stupid!!!",
-                "next_node": "end_example"
+                "next": "end_example"
             }
         ]
     }, 
