@@ -3,19 +3,38 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+// pub enum DialogueNodeId {
+//     #[serde(rename = "dummy")]
+//     Dummy,
+//     #[serde(rename = "start")]
+//     Start,
+//     #[serde(rename = "start_continued")]
+//     StartContinued,
+//     #[serde(rename = "jupi_question")]
+//     JupiQuestion,
+//     #[serde(rename = "jupi_confused")]
+//     JupiConfused,
+//     #[serde(rename = "jupi_scared")]
+//     JupiScared,
+// }
+
 pub enum DialogueNodeId {
     #[serde(rename = "dummy")]
     Dummy,
     #[serde(rename = "start")]
     Start,
-    #[serde(rename = "start_continued")]
-    StartContinued,
-    #[serde(rename = "jupi_question")]
-    JupiQuestion,
-    #[serde(rename = "jupi_confused")]
-    JupiConfused,
-    #[serde(rename = "jupi_scared")]
-    JupiScared,
+    #[serde(rename = "go_to_node_a")]
+    NodeA,
+    #[serde(rename = "go_to_node_b")]
+    NodeB,
+    #[serde(rename = "linear_node")]
+    LinearNode,
+    #[serde(rename = "linear_part_two")]
+    LinearNodeTwo, 
+    #[serde(rename = "end_example")]
+    EndExample, 
+    #[serde(rename = "end_class")]
+    EndClass,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

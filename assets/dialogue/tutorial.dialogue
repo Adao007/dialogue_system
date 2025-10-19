@@ -1,5 +1,11 @@
 [
     {
+        "id": "dummy",
+        "speaker": "The Void",
+        "text": "...",
+        "next": "start"
+    },
+    {
         "id": "start",
         "speaker": "Instructor", 
         "text": "This is an example of a Json File! This is dialogue.",
@@ -51,12 +57,7 @@
         "id": "linear_node", 
         "speaker": "Instructor", 
         "text": "Linear nodes are used for extended dialogues, that don't offer player choices",
-        "choices": [
-            {
-                "text": [],
-                "next": "linear_part_two"
-            }
-        ]
+        "next": "linear_part_two"
     }, 
 
     {
@@ -78,14 +79,12 @@
     {
         "id": "end_example",
         "speaker": "Instructor",
-        "text": "Listen here you mongol! How will you know how linear dialogue works?",
-        "choices": []
+        "text": "Listen here you mongol! How will you know how linear dialogue works?"
     },
 
     {
         "id": "end_class",
         "speaker": "Instructor", 
-        "text": "Thanks for listening! Next time we will look at long dialogue and formatting...", 
-        "choices": []
+        "text": "Thanks for listening! Next time we will look at long dialogue and formatting..."
     }
 ]
