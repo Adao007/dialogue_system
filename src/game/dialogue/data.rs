@@ -4,6 +4,8 @@ use std::collections::HashMap;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum DialogueNodeId {
+    #[serde(rename = "dummy")]
+    Dummy,
     #[serde(rename = "start")]
     Start,
     #[serde(rename = "start_continued")]

@@ -1,13 +1,6 @@
 use super::state::*;
 use bevy::prelude::*;
 
-pub struct UiPlugin;
-impl Plugin for UiPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, setup_ui);
-    }
-}
-
 #[derive(Component)]
 pub struct DialogueRoot;
 
@@ -52,7 +45,7 @@ impl DialogueText {
     }
 }
 
-fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
     let font_handle: Handle<Font> = asset_server.load("fonts/ztn.otf");
     let speed: f32 = 12.5;
 
@@ -98,7 +91,7 @@ fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
         });
 }
 
-fn set_visibility(
+pub fn set_visibility(
     active: Res<ActiveDialogue>,
     mut query: Query<&mut Visibility, With<DialogueRoot>>,
 ) {

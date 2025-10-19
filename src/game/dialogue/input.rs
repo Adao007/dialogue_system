@@ -1,16 +1,19 @@
+use super::{
+    choices::{ResponseUi},
+    data::{DialogueData, DialogueNodeId},
+    state::{ActiveDialogue, DialogueState},
+    ui::{DialogueBox, DialogueRoot, DialogueText},
+};
 use bevy::prelude::*;
-use super::{state::{ActiveDialogue, DialogueState}, ui::{DialogueRoot, DialogueText, DialogueBox}, data::{DialogueData, DialogueNodeId}};
 
-#[derive(Message)]
-struct DialogueAdvanced {
-    entity: Entity,
-}
-
-fn handle_input(
+pub fn handle_input(
     mut text_query: Query<(Entity, &mut DialogueText)>,
-    mut box_query: Query<&mut DialogueBox, With<DialogueRoot>>, 
+    mut box_query: Query<&mut DialogueBox, With<DialogueRoot>>,
     mut writer: TextUiWriter,
     mut active: ResMut<ActiveDialogue>,
+    commands: Commands, 
+    dialogue_ui: Query<Entity, With<DialogueRoot>>, 
+    response_ui_query: Query<Entity, With<ResponseUi>>,
     data_query: Query<&DialogueData>,
     input: Res<ButtonInput<KeyCode>>,
 ) {
@@ -27,43 +30,58 @@ fn handle_input(
             active.state = DialogueState::Confirmation;
         }
         DialogueState::Confirmation => {
-            let Ok(data) = data_query.get(active.source) else { return }; 
+            let Ok(data) = data_query.get(active.source) else {
+                return;
+            };
 
-            let current_node = &data.nodes[&active.node_id]; 
+            let current_node = &data.nodes[&active.node_id];
 
             if !current_node.choices.is_empty() {
                 active.state = DialogueState::Response;
-            }
-            else if let Some(next_id) = current_node.next {
+            } else if let Some(next_id) = current_node.next {
                 advance(&mut active, &mut text_query, &mut box_query, data, next_id);
-            }
-            else {
-
-            }
-            
+            } 
         }
-        DialogueState::Response => {}
+        DialogueState::End => {
+            end(dialogue_ui, response_ui_query, commands); 
+        }
+        _ => {}
     }
 }
 
-fn advance(
+pub fn advance(
     active: &mut ActiveDialogue,
-    text_query: &mut Query<(Entity, &mut DialogueText)>, 
+    text_query: &mut Query<(Entity, &mut DialogueText)>,
     box_query: &mut Query<&mut DialogueBox, With<DialogueRoot>>,
-    data: &DialogueData, 
+    data: &DialogueData,
     next_node_id: DialogueNodeId,
 ) {
-    active.node_id = next_node_id; 
-    
+    active.node_id = next_node_id;
+
     let new_node = &data.nodes[&next_node_id];
     for (_entity, mut text) in text_query.iter_mut() {
-        text.set_text(new_node.text.clone()); 
+        text.set_text(new_node.text.clone());
     }
 
-    
     if let Ok(mut text) = box_query.single_mut() {
-        text.auto_scroll = true; 
+        text.auto_scroll = true;
     }
-    
-    active.state = DialogueState::Output; 
+
+    active.state = DialogueState::Output;
+}
+
+fn end(
+    dialogue_ui: Query<Entity, With<DialogueRoot>>, 
+    response_ui_query: Query<Entity, With<ResponseUi>>,
+    mut commands: Commands, 
+) {
+    for ui in dialogue_ui.iter() {
+        commands.entity(ui).despawn();
+    }
+
+    for ui in response_ui_query.iter() {
+        commands.entity(ui).despawn(); 
+    }
+
+    commands.remove_resource::<ActiveDialogue>();
 }

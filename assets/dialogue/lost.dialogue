@@ -1,5 +1,11 @@
 [
     {
+        "id": "dummy",
+        "speaker": "The Void",
+        "text": "...",
+        "next": "start"
+    },
+    {
         "id": "start",
         "speaker": "Tony",
         "text": "Where da hell are we, Jupi? This, without a doubt, is NOT New Vegas!!!",

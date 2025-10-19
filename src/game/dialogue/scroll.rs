@@ -14,12 +14,12 @@ impl Plugin for ScrollPlugin {
 
 #[derive(EntityEvent, Debug)]
 #[entity_event(propagate, auto_propagate)]
-struct Scroll {
+pub struct Scroll {
     entity: Entity, 
     delta: Vec2, 
 }
 
-fn send_scroll_events(
+pub fn send_scroll_events(
     mut mouse_wheel_reader: MessageReader<MouseWheel>, 
     hover_map: Res<HoverMap>, 
     mut commands: Commands,
@@ -38,7 +38,7 @@ fn send_scroll_events(
     }
 }
 
-fn on_scroll_handler(
+pub fn on_scroll_handler(
     mut scroll: On<Scroll>,
     mut query: Query<(&mut ScrollPosition, &Node, &ComputedNode, Option<&mut DialogueBox>)>, 
 ) {
@@ -90,7 +90,7 @@ fn on_scroll_handler(
     }
 }
 
-fn auto_scroll(
+pub fn auto_scroll(
     dialogue_query: Query<&DialogueText, Changed<DialogueText>>,
     mut scroll_query: Query<(&mut ScrollPosition, &ComputedNode, &DialogueBox), With<DialogueBox>>
 ) {
