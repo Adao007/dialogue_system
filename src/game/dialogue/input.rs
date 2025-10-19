@@ -1,6 +1,6 @@
 use super::{
     choices::{ResponseUi},
-    data::{DialogueData, DialogueNodeId},
+    data::{DialogueData},
     state::{ActiveDialogue, DialogueState},
     ui::{DialogueBox, DialogueRoot, DialogueText},
 };
@@ -38,8 +38,8 @@ pub fn handle_input(
 
             if !current_node.choices.is_empty() {
                 active.state = DialogueState::Response;
-            } else if let Some(next_id) = current_node.next {
-                advance(&mut active, &mut text_query, &mut box_query, data, next_id);
+            } else if let Some(next_id) = &current_node.next {
+                advance(&mut active, &mut text_query, &mut box_query, data, next_id.to_string());
             } 
         }
         DialogueState::End => {
@@ -54,11 +54,11 @@ pub fn advance(
     text_query: &mut Query<(Entity, &mut DialogueText)>,
     box_query: &mut Query<&mut DialogueBox, With<DialogueRoot>>,
     data: &DialogueData,
-    next_node_id: DialogueNodeId,
+    next_node_id: String,
 ) {
-    active.node_id = next_node_id;
+    active.node_id = next_node_id.clone();
 
-    let new_node = &data.nodes[&next_node_id];
+    let new_node = &data.nodes[&next_node_id.clone()];
     for (_entity, mut text) in text_query.iter_mut() {
         text.set_text(new_node.text.clone());
     }

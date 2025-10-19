@@ -41,10 +41,12 @@ pub fn setup_response(
                 position_type: PositionType::Absolute,
                 flex_direction: FlexDirection::Column,
                 row_gap: Val::Px(10.0),
-                top: Val::Percent(30.0),
-                left: Val::Percent(20.0),
-                width: Val::Percent(60.0),
+                top: percent(65),
+                left: percent(20),
+                width: percent(60),
+                height: percent(25),
                 padding: UiRect::all(Val::Px(20.0)),
+                overflow: Overflow::scroll_y(),
                 ..default()
             },
             BackgroundColor(Color::srgba(0.1, 0.1, 0.1, 0.9)),
@@ -135,7 +137,7 @@ pub fn handle_selection(
                 &mut text_query,
                 &mut box_query,
                 data,
-                selected.next,
+                selected.next.clone(),
             );
             break;
         }

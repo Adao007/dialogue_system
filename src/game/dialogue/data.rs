@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+// #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 // pub enum DialogueNodeId {
 //     #[serde(rename = "dummy")]
 //     Dummy,
@@ -18,50 +18,50 @@ use std::collections::HashMap;
 //     JupiScared,
 // }
 
-pub enum DialogueNodeId {
-    #[serde(rename = "dummy")]
-    Dummy,
-    #[serde(rename = "start")]
-    Start,
-    #[serde(rename = "go_to_node_a")]
-    NodeA,
-    #[serde(rename = "go_to_node_b")]
-    NodeB,
-    #[serde(rename = "linear_node")]
-    LinearNode,
-    #[serde(rename = "linear_part_two")]
-    LinearNodeTwo, 
-    #[serde(rename = "end_example")]
-    EndExample, 
-    #[serde(rename = "end_class")]
-    EndClass,
-}
+// pub enum DialogueNodeId {
+//     #[serde(rename = "dummy")]
+//     Dummy,
+//     #[serde(rename = "start")]
+//     Start,
+//     #[serde(rename = "go_to_node_a")]
+//     NodeA,
+//     #[serde(rename = "go_to_node_b")]
+//     NodeB,
+//     #[serde(rename = "linear_node")]
+//     LinearNode,
+//     #[serde(rename = "linear_part_two")]
+//     LinearNodeTwo, 
+//     #[serde(rename = "end_example")]
+//     EndExample, 
+//     #[serde(rename = "end_class")]
+//     EndClass,
+// }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DialogueChoice {
     pub text: String,
-    pub next: DialogueNodeId,
+    pub next: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DialogueNode {
-    pub id: DialogueNodeId,
+    pub id: String,
     pub speaker: String,
     pub text: String,
     #[serde(default)] // Defaults missing values to None
-    pub next: Option<DialogueNodeId>,
+    pub next: Option<String>,
     #[serde(default)] // Defaults missing values to Vec::new()
     pub choices: Vec<DialogueChoice>,
 }
 
 #[derive(Component)]
 pub struct DialogueData {
-    pub nodes: HashMap<DialogueNodeId, DialogueNode>,
-    pub start_node: DialogueNodeId,
+    pub nodes: HashMap<String, DialogueNode>,
+    pub start_node: String,
 }
 
 impl DialogueData {
-    pub fn new(nodes: HashMap<DialogueNodeId, DialogueNode>, start: DialogueNodeId) -> Self {
+    pub fn new(nodes: HashMap<String, DialogueNode>, start: String) -> Self {
         DialogueData {
             nodes: nodes,
             start_node: start,

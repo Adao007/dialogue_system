@@ -1,14 +1,12 @@
 use super::{
-    data::{DialogueData, DialogueNodeId},
-    ui::{DialogueRoot},
-    choices::{ResponseUi},
+    data::{DialogueData},
 }; 
 use bevy::prelude::*;
 
 #[derive(Resource)]
 pub struct ActiveDialogue {
     pub source: Entity,
-    pub node_id: DialogueNodeId,
+    pub node_id: String,
     pub state: DialogueState,
 }
 
@@ -30,7 +28,7 @@ pub fn active_dialogue(
         if let Ok((entity, data)) = query.single_mut() {
             commands.insert_resource(ActiveDialogue {
                 source: entity,
-                node_id: data.start_node,
+                node_id: data.start_node.clone(),
                 state: DialogueState::Output,
             });
         }
