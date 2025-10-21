@@ -1,7 +1,7 @@
 [
     {
         "id": "dummy",
-        "speaker": "The Void",
+        "speaker": "Hit \"space\" to advance text!",
         "text": "...",
         "next": "start"
     },

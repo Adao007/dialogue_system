@@ -18,13 +18,18 @@ pub enum DialogueState {
     End,
 }
 
+#[derive(Message, Debug)]
+pub struct SpriteSpawner; 
+
 // Helper Systems
 pub fn active_dialogue(
     mut commands: Commands,
     mut query: Query<(Entity, &DialogueData)>,
     input: Res<ButtonInput<KeyCode>>,
+    mut tony_spawner: MessageWriter<SpriteSpawner>, 
 ) {
     if input.just_pressed(KeyCode::Enter) {
+        tony_spawner.write(SpriteSpawner); 
         if let Ok((entity, data)) = query.single_mut() {
             commands.insert_resource(ActiveDialogue {
                 source: entity,
@@ -32,6 +37,8 @@ pub fn active_dialogue(
                 state: DialogueState::Output,
             });
         }
+
+        
     }
 }
 

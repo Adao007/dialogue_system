@@ -1,0 +1,88 @@
+[
+    {
+        "id": "dummy",
+        "speaker": "Hit \"space\" to advance completed text!",
+        "text": "...",
+        "next": "start"
+    }, 
+    {
+        "id": "start", 
+        "speaker": "Pug",
+        "text": "Howdy y'all! This is my dialogue system.", 
+        "next": "introduction"
+    },
+    {
+        "id": "introduction",
+        "speaker": "Pug",
+        "text": "It supports linear dialogue like this node here!", 
+        "next": "choices"
+    },
+    {
+        "id": "choices",
+        "speaker": "Pug", 
+        "text": "This system also supports a state machine for choices!!!!",
+        "choices": [
+            {
+                "text": "Why do you look like that?",
+                "next": "looks"
+            },
+            {
+                "text": "Why do you look like that?",
+                "next": "looks"
+            },
+            {
+                "text": "Why do you look like that?",
+                "next": "looks"
+            },
+            {
+                "text": "Why do you look like that?",
+                "next": "looks"
+            },
+            {
+                "text": "Why do you look like that?",
+                "next": "looks"
+            },
+            {
+                "text": "Why do you look like that? (Evil)",
+                "next": "looks2"
+            },
+            {
+                "text": "Why do you look like that?",
+                "next": "looks"
+            },
+            {
+                "text": "Thats cool.",
+                "next": "thanks"
+            }
+        ]
+    }, 
+    {
+        "id": "looks",
+        "speaker": "Pug",
+        "text": "Fuck you man, I'm purdy!!!",
+        "next": "Scrollable"
+    },
+    {
+        "id": "looks2", 
+        "speaker": "Da Devil",
+        "text": "Imma get you.",
+        "next": "thanks"
+    },
+    {
+        "id": "thanks",
+        "speaker": "Pug", 
+        "text": "Thanks...",
+        "next": "Scrollable"
+    },
+    {
+        "id": "Scrollable",
+        "speaker": "Pug",
+        "text": "Anyways, we can support longer texts with scrollable features. Try scrolling the mouse with long text! You can hit the space button to auto-complete the text as well! New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas, New Vegas!",
+        "next": "end"
+    },
+    {
+        "id": "end", 
+        "speaker": "Pug",
+        "text": "Thanks for listening!!! Goodbye!!!"
+    }
+]

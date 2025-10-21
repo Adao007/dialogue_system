@@ -16,6 +16,9 @@ pub struct DialogueText {
     pub output_speed: f32, // Chars per second
 }
 
+#[derive(Component)]
+pub struct Title;
+
 impl DialogueText {
     pub fn new(speed: f32) -> Self {
         Self {
@@ -53,31 +56,58 @@ pub fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
         .spawn((
             Node {
                 position_type: PositionType::Absolute,
-                top: percent(80),
+                flex_direction: FlexDirection::Column,
+                top: percent(68),
                 left: percent(20),
                 width: percent(60),
-                height: percent(13),
+                height: percent(25),
                 ..default()
             },
             BackgroundColor(Color::srgba(0.10, 0.10, 0.10, 0.9)),
             DialogueRoot,
             Visibility::Visible,
         ))
-        // Scrollable Component
         .with_children(|parent| {
+            // Speaker Ui
+            parent
+                .spawn(Node {
+                    padding: UiRect {
+                        left: Val::Px(10.0),
+                        top: Val::Px(10.0),
+                        right: Val::Px(10.0),
+                        bottom: Val::Px(5.0),
+                    },
+                    width: Val::Percent(100.0),
+                    justify_content: JustifyContent::Start,
+                    ..default()
+                })
+                .with_children(|speaker_parent| {
+                    speaker_parent.spawn((
+                        Text::new(""),
+                        TextFont {
+                            font: font_handle.clone(),
+                            font_size: 40.0,
+                            ..default()
+                        },
+                        TextColor(Color::srgb(1.0, 1.0, 1.0)),
+                        Title,
+                    ));
+                });
+            // Scrollable Component
             parent
                 .spawn((
                     Node {
                         flex_direction: FlexDirection::Column,
-                        align_self: AlignSelf::Stretch,
                         overflow: Overflow::scroll_y(),
+                        flex_grow:1.0,
+                        padding: UiRect::all(Val::Px(10.0)),
                         ..default()
                     },
                     DialogueBox { auto_scroll: true },
                 ))
                 // Text Component
-                .with_children(|parent| {
-                    parent.spawn((
+                .with_children(|text_parent| {
+                    text_parent.spawn((
                         Text::new(""),
                         TextFont {
                             font: font_handle.clone(),
@@ -103,3 +133,4 @@ pub fn set_visibility(
         };
     }
 }
+

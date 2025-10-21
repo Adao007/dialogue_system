@@ -12,6 +12,7 @@ pub struct DialoguePlugin;
 impl Plugin for DialoguePlugin {
     fn build(&self, app: &mut App) {
         app
+            .add_message::<state::SpriteSpawner>()
             .add_systems(Startup, (
                 loader::load_dialogue,
                 ui::setup_ui, 
@@ -21,6 +22,8 @@ impl Plugin for DialoguePlugin {
                 state::active_dialogue,
                 (   
                     output::output_text,
+                    output::output_speaker,
+                    output::output_sprites,
                     input::handle_input,
                     ui::set_visibility,
                     scroll::send_scroll_events, 
