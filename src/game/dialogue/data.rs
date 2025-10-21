@@ -2,46 +2,27 @@ use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-// #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-// pub enum DialogueNodeId {
-//     #[serde(rename = "dummy")]
-//     Dummy,
-//     #[serde(rename = "start")]
-//     Start,
-//     #[serde(rename = "start_continued")]
-//     StartContinued,
-//     #[serde(rename = "jupi_question")]
-//     JupiQuestion,
-//     #[serde(rename = "jupi_confused")]
-//     JupiConfused,
-//     #[serde(rename = "jupi_scared")]
-//     JupiScared,
-// }
-
-// pub enum DialogueNodeId {
-//     #[serde(rename = "dummy")]
-//     Dummy,
-//     #[serde(rename = "start")]
-//     Start,
-//     #[serde(rename = "go_to_node_a")]
-//     NodeA,
-//     #[serde(rename = "go_to_node_b")]
-//     NodeB,
-//     #[serde(rename = "linear_node")]
-//     LinearNode,
-//     #[serde(rename = "linear_part_two")]
-//     LinearNodeTwo, 
-//     #[serde(rename = "end_example")]
-//     EndExample, 
-//     #[serde(rename = "end_class")]
-//     EndClass,
-// }
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DialogueChoice {
     pub text: String,
     pub next: String,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SpritePosition {
+    pub x: f32,
+    pub y: f32,
+    pub z: f32,
+}
+
+#[derive(Component)]
+pub struct DialogueSprite {
+    pub speaker: String,
+    pub variant: Option<String>,
+}
+
+#[derive(Component)]
+pub struct ActiveSprite;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DialogueNode {
@@ -52,6 +33,10 @@ pub struct DialogueNode {
     pub next: Option<String>,
     #[serde(default)] // Defaults missing values to Vec::new()
     pub choices: Vec<DialogueChoice>,
+    #[serde(default)]
+    pub sprite_position: Option<SpritePosition>,
+    #[serde(default)]
+    pub variant: Option<String>,
 }
 
 #[derive(Component)]
