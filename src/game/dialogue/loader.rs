@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use std::collections::HashMap;
 use std::fs;
 
-const JSON_DIALOGUE: &str = "assets/dialogue/presentation.dialogue";
+const JSON_DIALOGUE: &str = "assets/dialogue/tutorial.dialogue";
 
 pub fn load_dialogue(mut commands: Commands) {
     let json_string = fs::read_to_string(JSON_DIALOGUE).expect("Failed to read JSON file.");

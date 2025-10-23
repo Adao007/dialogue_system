@@ -37,8 +37,6 @@ pub fn active_dialogue(
                 state: DialogueState::Output,
             });
         }
-
-        
     }
 }
 
