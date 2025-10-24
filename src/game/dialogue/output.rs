@@ -1,4 +1,4 @@
-use super::{data::DialogueData, state::{ActiveDialogue, DialogueState, SpriteSpawner}, ui::{DialogueText, Title}};
+use super::{data::DialogueData, state::{ActiveDialogue, DialogueState}, ui::{DialogueText, Title}};
 use bevy::prelude::*;
 
 pub fn output_text(
@@ -35,18 +35,3 @@ pub fn output_speaker(
         }
     }
 }
-
-// // For now spawn the Tony Pug
-// pub fn output_sprites(
-//     mut commands: Commands, 
-//     asset_server: Res<AssetServer>, 
-//     mut spawner_reader: MessageReader<SpriteSpawner>,
-// ) {
-//     for _ in spawner_reader.read() {  
-//          let sprite= asset_server.load("Tony2.png");
-//          commands.spawn((
-//             Sprite::from_image(sprite),
-//             Transform::from_xyz(0.0, 15.0, 1.0), 
-//         ));
-//     }
-// }
