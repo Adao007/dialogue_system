@@ -1,5 +1,6 @@
 use super::{
     data::{DialogueData},
+    ui::{DialogueText},
 }; 
 use bevy::prelude::*;
 
@@ -21,15 +22,34 @@ pub enum DialogueState {
 #[derive(Message, Debug)]
 pub struct SpriteSpawner; 
 
+pub fn initialize_text(
+    active: Res<ActiveDialogue>,
+    data_query: Query<&DialogueData>,
+    mut text_query: Query<&mut DialogueText>,
+) {
+    if !active.is_changed() {
+        return;
+    }
+
+    let Ok(data) = data_query.get(active.source) else {return; };
+    let current_node = &data.nodes[&active.node_id]; 
+
+    if active.state == DialogueState::Output {
+        for mut text in text_query.iter_mut() {
+            text.set_text(current_node.text.clone()); 
+        }
+    } 
+}
+
 // Helper Systems
 pub fn active_dialogue(
     mut commands: Commands,
     mut query: Query<(Entity, &DialogueData)>,
     input: Res<ButtonInput<KeyCode>>,
-    mut tony_spawner: MessageWriter<SpriteSpawner>, 
+    // mut tony_spawner: MessageWriter<SpriteSpawner>, 
 ) {
     if input.just_pressed(KeyCode::Enter) {
-        tony_spawner.write(SpriteSpawner); 
+        // tony_spawner.write(SpriteSpawner); 
         if let Ok((entity, data)) = query.single_mut() {
             commands.insert_resource(ActiveDialogue {
                 source: entity,

@@ -1,19 +1,13 @@
 use bevy::prelude::*;
-use std::collections::HashMap;
 use super::{
-    data::{DialogueData, DialogueSprite, ActiveSprite}, 
-    state::ActiveDialogue
+    data::{DialogueData, DialogueSprite, ActiveSprite, SpriteCache}, 
+    state::ActiveDialogue,
 };
-
-#[derive(Resource)]
-pub struct SpriteCache {
-    pub loaded: HashMap<String, Handle<Image>>,
-}
 
 #[derive(Component)]
 pub struct ActiveDialogueSprite; 
 
-fn manage_sprites(
+pub fn manage_sprites(
     mut commands: Commands,
     mut portrait_cache: ResMut<SpriteCache>,
     active: Res<ActiveDialogue>,
@@ -35,7 +29,7 @@ fn manage_sprites(
     }; 
 
     let mut existing = false;
-    for (entity, sprite) in existing_sprites.iter() {
+    for (_entity, sprite) in existing_sprites.iter() {
         if sprite.speaker == current_node.speaker && sprite.variant == current_node.variant {
             existing = true; 
             break; 
@@ -50,7 +44,7 @@ fn manage_sprites(
         commands.entity(entity).despawn();
     }
 
-    if let Some(handle) = try_load_portrait(
+    if let Some(handle) = load_portrait(
         &current_node.speaker,
         current_node.variant.as_deref(),
         &asset_server,
@@ -67,5 +61,45 @@ fn manage_sprites(
             },
             ActiveSprite,
         )); 
+    }
+}
+
+fn load_portrait(
+    speaker: &str,
+    variant: Option<&str>, 
+    asset_server: &AssetServer, 
+    cache: &mut SpriteCache, 
+) -> Option<Handle<Image>> {
+    let paths = if let Some(var) = variant {
+        vec![
+            format!("sprites/{}_{}.png", speaker.to_lowercase(), var),
+            format!("sprites/{}.png", speaker.to_lowercase()), 
+        ]
+    } else {
+        vec![format!("sprites/{}.png", speaker.to_lowercase())]
+    }; 
+
+    for path in paths {
+        if let Some(handle) = cache.loaded.get(&path) {
+            return Some(handle.clone());
+        }
+
+        let handle = asset_server.load(&path); 
+        cache.loaded.insert(path.clone(), handle.clone()); 
+        return Some(handle); 
+    }
+
+    None
+}
+
+pub fn cleanup_sprites(
+    mut commands: Commands,
+    active: Option<Res<ActiveDialogue>>, 
+    sprites: Query<Entity, With<ActiveSprite>>,
+) {
+    if active.is_none() {
+        for entity in sprites.iter() {
+            commands.entity(entity).despawn(); 
+        }
     }
 }

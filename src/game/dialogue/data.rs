@@ -81,6 +81,6 @@ impl DialogueData {
 }
 
 #[derive(Resource, Default)]
-pub struct PortraitCache {
+pub struct SpriteCache {
     pub loaded: HashMap<String, Handle<Image>>,
 }
