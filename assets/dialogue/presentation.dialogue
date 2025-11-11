@@ -4,15 +4,14 @@
         "speaker": "Pugtony",
         "text": "Howdy y'all! This is my dialogue system. To help me, I will spawn my TWIN.", 
         "next": "introduction",
-        "sprite_preset": "center"
-        
+        "sprite_preset": "right"
     },
     {
         "id": "introduction",
         "speaker": "Catjupi",
         "text": "Hello, I'm the twin!!! It supports linear dialogue like this node here!", 
         "next": "choices",
-        "sprite_preset": "center"
+        "sprite_preset": "left"
     },
     {
         "id": "choices",

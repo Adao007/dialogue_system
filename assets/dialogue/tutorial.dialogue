@@ -1,11 +1,5 @@
 [
     {
-        "id": "dummy",
-        "speaker": "Hit \"space\" to advance text!",
-        "text": "...",
-        "next": "start"
-    },
-    {
         "id": "start",
         "speaker": "Instructor", 
         "text": "This is an example of a Json File! This is dialogue.",
