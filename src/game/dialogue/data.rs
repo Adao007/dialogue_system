@@ -10,34 +10,80 @@ pub enum DialogueType {
     Casual, // Low Priority, random character interaction 
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DialogueChoice {
-    pub text: String,
-    pub next: String,
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct DialogueNode {
+    // Core (always required)
+    pub dialogue_type: DialogueType,
+    pub id: String, 
+    pub text: Vec<String>, // Multiple texts -> Randomly Selected
+
+    // Optional include
+    #[serde(default)]
+    pub speaker: Option<String>, 
+
+    #[serde(default)]
+    pub sprites: SpriteConfig,
+    
+    #[serde(default)]
+    pub selection: SelectionConfig, 
+
+    #[serde(default)]
+    pub conditions: Option<Vec<DialogueCondition>>, 
+
+    #[serde(default)]
+    pub player_choices: Option<Vec<DialogueChoice>>, 
 }
 
-// #[derive(Debug, Clone, Serialize, Deserialize)]
-// pub struct DialogueNode {
-//     pub id: String,
-//     #[serde[default]]
-//     pub speaker: Option<String>,
-//     pub text: String,
-//     pub priority: i32,
-//     pub weight: f32, 
-//     pub dialogue_type: DialogueType,
-//     pub skippable: bool, 
-//     #[serde(default)] // Defaults missing values to Vec::new()
-//     pub choices: Vec<DialogueChoice>,
-//     pub conditions: Option<Vec<Condition>>, 
-//     pub random_variants: Option<Vec<String>, 
-//     #[serde(default)]
-//     pub sprite_preset: Option<SpritePreset>,
-//     #[serde(default)]
-//     pub variant: Option<String>,
-//     #[serde(default)]
-//     pub events: Vec<String>, 
-// }
-// ORGANIZE THE DIALOGUE NODE... 
+#[derive(Clone, Serialize, Deserialize, Debug, Default)]
+pub struct SpriteConfig {
+    #[serde(default)]
+    pub sprite_preset: Option<SpritePreset>, 
+
+    #[serde(default)]
+    pub sprite_variant: Option<String>, 
+}
+
+#[derive(Clone, Serialize, Deserialize, Debug, Default)]
+pub struct SelectionConfig {
+    #[serde(default)]
+    pub priority: i32, // 0
+
+    // Given equal priority, weight determines selection 
+    #[serde(default = "default_weight")]
+    pub weights: f32, // 1.0
+}
+
+fn default_weight () -> f32 {1.0}
+
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct DialogueChoice {
+    pub text: String, 
+    pub next: String, 
+    pub conditions: Option<Vec<DialogueCondition>>, 
+}
+
+/* --- CONDITIONS --- */
+// As of right now, we will keep Conditions here. 
+// But I foresee this maybe it's own file. 
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct DialogueCondition {
+    pub condition_type: ConditionType, 
+    // Can add UI hints like pud display_name: Option<String>
+    // As long as ConditionType is separate. Leave room to expand. 
+}
+
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub enum ConditionType {
+    // ... all possible condition types
+    // EXAMPLES... 
+    // Inventory: HasItem(String), HasCurrency{ amount: i32},
+    // Quests: QuestActive(String), QuestComplete(String),
+    // Stats: StatCheck {stat: String, min: i32}, SkillCheck {skill:String, min:i32},
+    // Relational: RelationMeter {character: String, threshold: i32}, 
+    // Location/Time: InLocation(String), TimeOfDay(start: i32, end:i32), 
+}
+
+
 
 #[derive(Component)]
 pub struct DialogueData {

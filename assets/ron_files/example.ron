@@ -1,0 +1,50 @@
+// NOTE DIALOGUE-TYPES: Story, Event, Transactional, Casual
+// Here is an example of a dialogue file... 
+(
+    // Essential Data
+    dialogue_type: Story,
+    id: "Learning File",
+    text: ["This is a learning file!"], 
+    speaker: Some("Person's Name"), 
+
+    // Optional Data 
+    // Sprite Config 
+
+    selection: (priority: 100, weight: 1.0), 
+    
+    conditions: Some([
+        (condition_type: QuestActive("quest_name")), 
+    ])
+
+    choices: [
+        (
+            text: "Choice Text appears as a choice!",
+            next: "next_id", 
+            conditions: None,
+        ), 
+        (
+            text: ["Skill Check] Special choice", 
+            next: "special_outcome",
+            conditions: Some([
+                (condition_type: SkillCheck(skill: "SkillName", min 5)), 
+            ]),
+        ),
+    ],
+), 
+
+(
+    dialogue_type: Story, 
+    id: "next_id", 
+    text: ["You don't have to include optional data"],
+    speaker: Some("Anthony"),
+),
+
+(
+    dialogue_type: Story, 
+    id: "special_outcome",
+    text: ["You can include some or none of the optional data!"],
+    speaker: Some("Anthony"), 
+
+    // Optional Data 
+    selection (priority: 1000), 
+)
